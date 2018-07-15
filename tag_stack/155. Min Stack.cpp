@@ -19,6 +19,8 @@ public:
     }
     
     void pop() {
+        if(stack.empty()||minStack.empty())
+            return;
         stack.pop();
         minStack.pop();
     }
@@ -33,6 +35,52 @@ public:
 private:
     std::stack<int> stack;
     std::stack<int> minStack;
+};
+
+class MinStack
+{
+public:
+    MinStack()
+    {
+
+    }
+    void push(int x) {
+        if(stack.empty())
+        {
+            stack.push(0L);
+            min = x;
+        }else
+        {
+            stack.push(x-min); //Could be negative if min value needs to change
+            if(x<min)
+                min = x;
+        }
+    }
+    
+    void pop() {
+        if(stack.empty())
+            return;
+        long top = stack.top();
+        stack.pop();
+        if(pop<0)
+            min = min - pop;
+    }
+    
+    int top() {
+        long top = stack.top();
+        if(top>0)
+            return static_cast<int>(top+min);
+        else
+            return static_cast<int>(min);
+    }
+    
+    int getMin() {
+        return static_cast<int>(min);
+    }
+
+private:
+    std::stack<long> stack;
+    long min;
 };
 
 /**

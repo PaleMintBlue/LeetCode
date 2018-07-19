@@ -19,6 +19,34 @@ public:
 */
 class Solution {
 public:
+    Node* flatten(Node* head)
+    {
+        if(!head)
+            return head;
+        std::stack<Node*> stack;
+        Node* p = head;
+        while(p->next || !stack.empty()||p->child)
+        {
+            if(!p->next&&!stack.empty())
+            {
+                auto node = stack.top();
+                stack.pop();
+                node->prev = p;
+                p->next = node;
+            }
+            if(p->child)
+            {
+                if(p->next)
+                    stack.push(p->next);
+                p->next = p->child;
+                p->next->prev = p;
+                p->child = nullptr;
+            }
+            p = p->next;
+        }
+        return head;
+    }
+    /*
     Node* flatten(Node* head) {
         Node* tail = nullptr;
         helper(head,tail);
@@ -45,5 +73,5 @@ public:
             tail = head;
             helper(head->next,tail);
         }
-    }
+    }*/
 };

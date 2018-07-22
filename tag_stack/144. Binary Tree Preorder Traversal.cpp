@@ -7,7 +7,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+/*class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> ret;
@@ -29,6 +29,27 @@ public:
                 stack.pop();
                 p = p->right;
             }
+        }
+        return ret;
+    }
+};*/
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ret;
+        if(!root)
+            return ret;
+        std::stack<TreeNode*> stack;
+        stack.push(root);
+        while(!stack.empty())
+        {
+            auto node = stack.top();
+            stack.pop();
+            ret.push_back(node->val);
+            if(node->right)
+                stack.push(node->right);
+            if(node->left)
+                stack.push(node->left);
         }
         return ret;
     }

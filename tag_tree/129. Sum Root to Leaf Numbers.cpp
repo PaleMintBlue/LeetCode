@@ -43,7 +43,7 @@ public:
         return total;
     }
 };*/
-class Solution {
+/*class Solution {
 public:
     int sumNumbers(TreeNode* root) {
         if(!root)
@@ -58,5 +58,37 @@ public:
         if(!root->left&&!root->right)
             return sum;
         return helper(root->left,sum) + helper(root->right,sum);
+    }
+};*/
+class Solution {
+public:
+    int sumNumbers(TreeNode* root) {
+        if(!root)
+            return 0;
+        int sum = 0;
+        helper(root,sum);
+        return sum;
+    }
+    void helper(TreeNode* root,int& sum)
+    {
+        if(!root)
+            return;
+        sum = sum*10 + root->val;
+        if(!root->left&&!root->right)
+            return;
+        int result = 0;
+        if(root->left)
+        {
+            int leftSum = sum;
+            helper(root->left,leftSum);
+            result += leftSum;
+        }
+        if(root->right)
+        {
+            int rightSum = sum;
+            helper(root->right,rightSum);
+            result += rightSum;
+        }
+        sum = result;
     }
 };

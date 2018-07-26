@@ -7,7 +7,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+/*class Solution {
 public:
     int pathSum(TreeNode* root, int sum) {
         unordered_map<int,int> map;
@@ -23,5 +23,22 @@ public:
         ret += helper(node->left,sum,node->val,map) + helper(node->right,sum,node->val,map);
         map[node->val]--;
         return ret;
+    }
+};*/
+class Solution
+{
+public:
+    int pathSum(TreeNode* root,int sum)
+    {
+        if(!root)
+            return 0;
+        return pathSumFrom(root,sum) + pathSum(root->left,sum) + pathSum(root->right,sum);
+    }
+private:
+    int pathSumFrom(TreeNode* node,int sum)
+    {
+        if(!node)
+            return 0;
+        return (node->val==sum?1:0) + pathSumFrom(node->left,sum-node->val) + pathSumFrom(node->right,sum-node->val);
     }
 };

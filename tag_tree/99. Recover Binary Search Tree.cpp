@@ -31,7 +31,7 @@ public:
     	inorder(root->right,node_vec,value_vec);
     }
 };*/
-class Solution {
+/*class Solution {
 public:
     void recoverTree(TreeNode* root) {
   		if(!root)
@@ -62,4 +62,41 @@ public:
     	}
     	inorder(root->right,preNode,firstNode,secondNode);
     }
+};*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    Solution()
+    {
+        prevElement = &prev;
+    }
+    void recoverTree(TreeNode* root) {
+        traverse(root);
+        swap(firstElement->val,secondElement->val);
+    }
+    void traverse(TreeNode* root)
+    {
+        if(!root)
+            return;
+        traverse(root->left);
+        if(!firstElement&&prevElement->val >= root->val)
+            firstElement = prevElement;
+        if(firstElement&&prevElement->val>=root->val)
+            secondElement = root;
+        prevElement = root;
+        traverse(root->right);
+    }
+private:
+    TreeNode* firstElement = nullptr;
+    TreeNode* secondElement = nullptr;
+    TreeNode* prevElement = nullptr;
+    TreeNode prev = TreeNode(std::numeric_limits<int>::min());
 };

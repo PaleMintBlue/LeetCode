@@ -15,6 +15,7 @@ public:
         return -1;
     }
 };*/
+/*
 class Solution
 {
 public:
@@ -33,4 +34,39 @@ public:
         }
         return -1;
     }
+};*/
+class Solution
+{
+public:
+    int peakIndexInMountainArray(vector<int>& A)
+    {
+        int left = 0,right = A.size() - 1;
+        int x1 = gold1(left,right);
+        int x2 = gold2(left,right);
+        while(x1<x2)
+        {
+        	if(A[x1]<A[x2])
+        	{
+        		left = x1;
+        		x1 = x2;
+        		x2 = gold1(x1,right);
+        	}else 
+        	{
+        		right = x2;
+        		x2 = x1;
+        		x1 = gold2(left,x2);
+        	}
+        }
+        return x1;
+    }
+private:
+	int gold1(int left,int right)
+	{
+		return left + static_cast<int>(round((right-left)*0.382));
+	}
+	int gold2(int left,int right)
+	{
+		return left + static_cast<int>(round((right-left)*0.618));
+	}
 };
+

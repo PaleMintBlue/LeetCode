@@ -1,4 +1,4 @@
-template<typename T,typename U>
+/*template<typename T,typename U>
 class DynamicArray
 {
 public:
@@ -54,7 +54,6 @@ private:
 
 class MedianFinder {
 public:
-    /** initialize your data structure here. */
     MedianFinder() {
         
     }
@@ -68,6 +67,30 @@ public:
     }
 private:
     DynamicArray<int,double> dynamicArray;
+};*/
+class MedianFinder
+{
+public:
+    MedianFinder()
+    {
+        
+    }
+    void addNum(int num) {
+        small.push(num);
+        large.push(-small.top());
+        small.pop();
+        if(small.size()<large.size())
+        {
+            small.push(-large.top());
+            large.pop();
+        }
+    }
+    
+    double findMedian() {
+        return small.size()>large.size()?small.top():(small.top()-large.top())/2.0;
+    }
+private:
+    std::priority_queue<long> small,large;
 };
 
 /**

@@ -17,6 +17,39 @@ public:
     }
 };
 */
+/*
+class Solution {
+public:
+    Node* flatten(Node* head) {
+        if(!head)
+            return nullptr;
+        std::stack<Node*> stack;
+        stack.push(head);
+        Node dummy(-1,nullptr,head,nullptr);
+        Node* pre = &dummy;
+        while(!stack.empty())
+        {
+            auto node = stack.top();
+            stack.pop();
+            pre->next = node;
+            node->prev = pre;
+            
+            if(node->next)
+            {
+                stack.push(node->next);
+                node->next = nullptr;
+            }
+            if(node->child)
+            {
+                stack.push(node->child);
+                node->child = nullptr;
+            }
+            pre = node;
+        }
+        dummy.next->prev = nullptr;
+        return dummy.next;
+    }
+};*/
 class Solution {
 public:
     Node* flatten(Node* head)

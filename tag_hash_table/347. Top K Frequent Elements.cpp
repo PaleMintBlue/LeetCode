@@ -1,4 +1,4 @@
-class Solution {
+/*class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         std::unordered_map<int,int> map;
@@ -16,6 +16,25 @@ public:
             ret.insert(ret.end(),itr->second.begin(),itr->second.end());
             k -= itr->second.size();
         }
+        return ret;
+    }
+};*/
+class Solution
+{
+public:
+    vector<int> topKFrequent(vector<int>& nums,int k)
+    {
+        std::vector<int> ret;
+        std::unordered_map<int,int> map;
+        for(const auto& val:nums)
+            map[val]++;
+        for(const auto& pair:map)
+            ret.push_back(pair.first);
+        std::nth_element(ret.begin(),ret.begin()+k,ret.end(),[&map](int l,int r)->bool
+                         {
+                             return map[l] > map[r];
+                         });
+        ret.erase(ret.begin()+k,ret.end());
         return ret;
     }
 };

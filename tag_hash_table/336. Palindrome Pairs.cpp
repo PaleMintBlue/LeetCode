@@ -11,26 +11,19 @@ public:
             dict[key] = i;
         }
         
-        if(dict.find("") != dict.end())
-        {
-            for(int i = 0; i < words.size(); i++)
-            {
-                if(i==dict[""])
-                    continue;
-                if(isPalindrome(words[i]))
-                    ret.push_back({dict[""],i});
-            }
-        }
-        
         for(int i = 0; i < words.size(); i++)
         {
             for(int j = 0; j < words[i].size();j++)
             {
                 std::string left = words[i].substr(0,j);
-                std::string right = words[i].substr(j,words[i].size()-j);
+                std::string right = words[i].substr(j);
                 
                 if(dict.find(left) != dict.end() && isPalindrome(right) && dict[left] != i)
+                {
                     ret.push_back({i,dict[left]});
+                    if(left.empty())
+                        ret.push_back({dict[left],i});
+                }
                 
                 if(dict.find(right) != dict.end() && isPalindrome(left) && dict[right] != i)
                     ret.push_back({dict[right],i});
@@ -40,7 +33,7 @@ public:
         return ret;
     }
 private:
-    bool isPalindrome(std::string str)
+    bool isPalindrome(const std::string& str)
     {
         int i = 0;
         int j = str.size() -1 ;
